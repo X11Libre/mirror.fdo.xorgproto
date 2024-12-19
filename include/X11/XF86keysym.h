@@ -317,18 +317,70 @@
 /* Use: XF86XK_WWAN                     _EVDEVK(0x0f6)     v3.13   KEY_WWAN */
 /* Use: XF86XK_RFKill                   _EVDEVK(0x0f7)     v2.6.33 KEY_RFKILL */
 /* Use: XF86XK_AudioMicMute             _EVDEVK(0x0f8)     v3.1    KEY_MICMUTE */
-#define XF86XK_Info                     _EVDEVK(0x166)  /*         KEY_INFO */
-/* Use: XF86XK_CycleAngle               _EVDEVK(0x173)             KEY_ANGLE */
+#define XF86XK_OK                       _EVDEVK(0x160)  /* v2.5.26 KEY_OK */
+/* Use: XF86XK_Select                   _EVDEVK(0x161)     v2.5.26 KEY_SELECT */
+#define XF86XK_GoTo                     _EVDEVK(0x162)  /* v2.5.26 KEY_GOTO */
+/* Use: XF86XK_Clear                    _EVDEVK(0x163)     v2.5.26 KEY_CLEAR */
+/* TODO: Unclear function               _EVDEVK(0x164)     v2.5.26 KEY_POWER2 */
+/* Use: XF86XK_Option                   _EVDEVK(0x165)     v2.5.26 KEY_OPTION */
+#define XF86XK_Info                     _EVDEVK(0x166)  /* v2.5.26 KEY_INFO */
+/* Use: XF86XK_Time                     _EVDEVK(0x167)     v2.5.26 KEY_TIME */
+#define XF86XK_VendorLogo               _EVDEVK(0x168)  /* v2.5.26 KEY_VENDOR */
+/* TODO: unclear function               _EVDEVK(0x169)     v2.5.26 KEY_ARCHIVE */
+#define XF86XK_MediaSelectProgramGuide  _EVDEVK(0x16a)  /* v2.5.26 KEY_PROGRAM */
+/* Use: XF86XK_NextFavorite             _EVDEVK(0x16b)     v2.5.26 KEY_CHANNEL */
+/* Use: XF86XK_Favorites                _EVDEVK(0x16c)     v2.5.26 KEY_FAVORITES */
+/* Use: XF86XK_MediaSelectProgramGuide  _EVDEVK(0x16d)     v2.5.26 KEY_EPG */
+#define XF86XK_MediaSelectHome          _EVDEVK(0x16e)  /* v2.5.26 KEY_PVR */
+/* TODO: Multimedia Home Platform       _EVDEVK(0x16f)     v2.5.26 KEY_MHP */
+#define XF86XK_MediaLanguageMenu        _EVDEVK(0x170)  /* v2.5.26 KEY_LANGUAGE */
+#define XF86XK_MediaTitleMenu           _EVDEVK(0x171)  /* v2.5.26 KEY_TITLE */
+/* Use: XF86XK_Subtitle                 _EVDEVK(0x172)     v2.5.26 KEY_SUBTITLE */
+/* Use: XF86XK_CycleAngle               _EVDEVK(0x173)     v2.5.26 KEY_ANGLE */
 /* Use: XF86XK_FullScreen               _EVDEVK(0x174)     v5.1    KEY_FULL_SCREEN */
+#define XF86XK_AudioChannelMode         _EVDEVK(0x175)  /* v2.5.26 KEY_MODE */
+/* Use: XF86XK_Keyboard                 _EVDEVK(0x176)     v2.5.26 KEY_KEYBOARD */
 #define XF86XK_AspectRatio              _EVDEVK(0x177)  /* v5.1    KEY_ASPECT_RATIO */
-#define XF86XK_DVD                      _EVDEVK(0x185)  /*         KEY_DVD */
-#define XF86XK_Audio                    _EVDEVK(0x188)  /*         KEY_AUDIO */
-/* Use: XF86XK_Video                    _EVDEVK(0x189)             KEY_VIDEO */
-/* Use: XF86XK_Calendar                 _EVDEVK(0x18d)             KEY_CALENDAR */
-#define XF86XK_ChannelUp                _EVDEVK(0x192)  /*         KEY_CHANNELUP */
-#define XF86XK_ChannelDown              _EVDEVK(0x193)  /*         KEY_CHANNELDOWN */
-/* Use: XF86XK_AudioRandomPlay          _EVDEVK(0x19a)             KEY_SHUFFLE */
-#define XF86XK_Break                    _EVDEVK(0x19b)  /*         KEY_BREAK */
+#define XF86XK_MediaSelectPC            _EVDEVK(0x178)  /* v2.5.26 KEY_PC */
+#define XF86XK_MediaSelectTV            _EVDEVK(0x179)  /* v2.5.26 KEY_TV */
+#define XF86XK_MediaSelectCable         _EVDEVK(0x17a)  /* v2.5.26 KEY_TV2 */
+#define XF86XK_MediaSelectVCR           _EVDEVK(0x17b)  /* v2.5.26 KEY_VCR */
+#define XF86XK_MediaSelectVCRPlus       _EVDEVK(0x17c)  /* v2.5.26 KEY_VCR2 */
+#define XF86XK_MediaSelectSatellite     _EVDEVK(0x17d)  /* v2.5.26 KEY_SAT */
+/* TODO: unclear media selector         _EVDEVK(0x17e)     v2.5.26 KEY_SAT2 */
+/* Use: XF86XK_CD                       _EVDEVK(0x17f)     v2.5.26 KEY_CD */
+#define XF86XK_MediaSelectTape          _EVDEVK(0x180)  /* v2.5.26 KEY_TAPE */
+#define XF86XK_MediaSelectRadio         _EVDEVK(0x181)  /* v2.5.26 KEY_RADIO */
+#define XF86XK_MediaSelectTuner         _EVDEVK(0x182)  /* v2.5.26 KEY_TUNER */
+#define XF86XK_MediaPlayer              _EVDEVK(0x183)  /* v2.5.26 KEY_PLAYER */
+#define XF86XK_MediaSelectTeletext      _EVDEVK(0x184)  /* v2.5.26 KEY_TEXT */
+#define XF86XK_DVD                      _EVDEVK(0x185)  /* v2.5.26 KEY_DVD */
+#define XF86XK_MediaSelectAuxilliary    _EVDEVK(0x186)  /* v2.5.26 KEY_AUX */
+/* TODO: unclear media selector         _EVDEVK(0x187)     v2.5.26 KEY_MP3 */
+#define XF86XK_Audio                    _EVDEVK(0x188)  /* v2.5.26 KEY_AUDIO */
+/* Use: XF86XK_Video                    _EVDEVK(0x189)     v2.5.26 KEY_VIDEO */
+/* TODO: unclear function               _EVDEVK(0x18a)     v2.5.26 KEY_DIRECTORY */
+/* TODO: unclear function               _EVDEVK(0x18b)     v2.5.26 KEY_LIST */
+/* Use: XF86XK_Memo                     _EVDEVK(0x18c)     v2.5.26 KEY_MEMO */
+/* Use: XF86XK_Calendar                 _EVDEVK(0x18d)     v2.5.26 KEY_CALENDAR */
+/* Use: XF86XK_Red                      _EVDEVK(0x18e)     v2.5.26 KEY_RED */
+/* Use: XF86XK_Green                    _EVDEVK(0x18f)     v2.5.26 KEY_GREEN */
+/* Use: XF86XK_Yellow                   _EVDEVK(0x190)     v2.5.26 KEY_YELLOW */
+/* Use: XF86XK_Blue                     _EVDEVK(0x191)     v2.5.26 KEY_BLUE */
+#define XF86XK_ChannelUp                _EVDEVK(0x192)  /* v2.5.26 KEY_CHANNELUP */
+#define XF86XK_ChannelDown              _EVDEVK(0x193)  /* v2.5.26 KEY_CHANNELDOWN */
+/* TODO: unclear function               _EVDEVK(0x194)     v2.5.26 KEY_FIRST */
+/* TODO: unclear function               _EVDEVK(0x195)     v2.5.26 KEY_LAST */
+/* TODO: unclear function               _EVDEVK(0x196)     v2.5.26 KEY_AB */
+/* TODO: unclear function               _EVDEVK(0x197)     v2.5.26 KEY_NEXT */
+/* TODO: unclear function               _EVDEVK(0x198)     v2.5.26 KEY_RESTART */
+#define XF86XK_MediaPlaySlow            _EVDEVK(0x199)  /* v2.5.26 KEY_SLOW */
+/* Use: XF86XK_AudioRandomPlay          _EVDEVK(0x19a)     v2.5.26 KEY_SHUFFLE */
+#define XF86XK_Break                    _EVDEVK(0x19b)  /* v2.5.26 KEY_BREAK */
+/* TODO: unclear function               _EVDEVK(0x19c)     v2.5.26 KEY_PREVIOUS */
+#define XF86XK_NumberEntryMode          _EVDEVK(0x19d)  /* v2.5.26 KEY_DIGITS */
+/* TODO: unclear function               _EVDEVK(0x19e)     v2.5.26 KEY_TEEN */
+/* TODO: unclear function (Twenties?)   _EVDEVK(0x19f)     v2.5.26 KEY_TWEN */
 #define XF86XK_VideoPhone               _EVDEVK(0x1a0)  /* v2.6.20 KEY_VIDEOPHONE */
 /* Use: XF86XK_Game                     _EVDEVK(0x1a1)     v2.6.20 KEY_GAMES */
 /* Use: XF86XK_ZoomIn                   _EVDEVK(0x1a2)     v2.6.20 KEY_ZOOMIN */

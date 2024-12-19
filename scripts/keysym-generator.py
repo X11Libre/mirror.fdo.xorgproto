@@ -48,7 +48,9 @@ def all_keysyms(directory):
     them as list.
     """
     keysym_names = []
-    pattern = re.compile(r"^#define\s+(?P<name>\w+)\s+(0x[0-9A-Fa-f]+)")
+    pattern = re.compile(
+        r"^#define\s+(?P<name>\w+)\s+(0x[0-9A-Fa-f]+|_EVDEVK\(0x([0-9A-Fa-f]{3}))"
+    )
     for path in directory.glob("*keysym*.h"):
         with open(path) as fd:
             for line in fd:
@@ -201,6 +203,7 @@ def verify(ns):
     name_pattern = re.compile(r"#define (XF86XK_[^\s]*)")
     space_check = re.compile(r"#define \w+(\s+)[^\s]+(\s+)")
     hex_pattern = re.compile(r".*0x([a-f0-9]+).*", re.I)
+    todo_pattern = re.compile(r"^/\* TODO.*\*/$")
     comment_format = re.compile(r".*/\* ([^\s]+)?\s+(\w+)")
     kver_format = re.compile(r"v[2-6]\.[0-9]+(\.[0-9]+)?")
 
@@ -257,7 +260,7 @@ def verify(ns):
                         name = match.group("name")
                         if name not in all_keysym_names:
                             error(f"Unknown keysym {name}", line)
-                    elif re.match(hex_pattern, line):
+                    elif re.match(hex_pattern, line) and not todo_pattern.match(line):
                         logger.warning(f"Unexpected hex code in {line}")
                     continue
 

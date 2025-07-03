@@ -237,27 +237,47 @@
 /*
  * Reserved range for evdev symbols: 0x10081000-0x10081FFF
  *
- * Key syms within this range must match the Linux kernel
- * input-event-codes.h file in the format:
- *     XF86XK_CamelCaseKernelName	_EVDEVK(kernel value)
+ * Key symbols within this range are intended for a 1:1 mapping to the
+ * Linux kernel input-event-codes.h file:
+ * - Keysym value: `_EVDEVK(kernel value)`
+ * - Keysym name: it must be prefixed by `XF86XK_`. The recommended *default*
+ *   name uses the following pattern: `XF86XK_CamelCaseKernelName`. CamelCasing
+ *   is done with a human control as last authority, e.g. see VOD instead of Vod
+ *   for the Video on Demand key. In case that the kernel key name is too
+ *   ambiguous, it is recommended to create a more explicit name with the
+ *   following guidelines:
+ *   1. Names should be mnemonic.
+ *   2. Names should avoid acronyms, unless sufficiently common and documented
+ *      in a comment.
+ *   3. Names should identify a function.
+ *   4. Keysyms share a common namespace, so keys with a generic name should
+ *      denote a generic function, otherwise it should be renamed to add context.
+ *      E.g. `KEY_OK` has the associated keysym `XF86XK_OK`, while `KEY_TITLE`
+ *      (used to open a menu to select a chapter of a media) is associated to
+ *      the keysym `XF86XK_MediaTitleMenu` to avoid ambiguity.
+ *   5. Keysyms should support designing *portable* applications, therefore
+ *      their names should be self-explaining to facilitate finding them and
+ *      to avoid misuse.
+ *   6. The “HID usage tables for USB” can be used if there is an unambiguous
+ *      mapping. See:
+ *      - Reference document: https://usb.org/document-library/hid-usage-tables-16
+ *      - Mapping in the Linux source file: `drivers/hid/hid-input.c` as of 2025-07
+ *
  * For example, the kernel
- *   #define KEY_MACRO_RECORD_START	0x2b0
+ *     #define KEY_MACRO_RECORD_START	0x2b0
  * effectively ends up as:
- *   #define XF86XK_MacroRecordStart	0x100812b0
+ *     #define XF86XK_MacroRecordStart	0x100812b0
  *
  * For historical reasons, some keysyms within the reserved range will be
  * missing, most notably all "normal" keys that are mapped through default
  * XKB layouts (e.g. KEY_Q).
  *
- * CamelCasing is done with a human control as last authority, e.g. see VOD
- * instead of Vod for the Video on Demand key.
- *
  * The format for #defines is strict:
  *
- * #define XF86XK_FOO<tab...>_EVDEVK(0xABC)<tab><tab> |* kver KEY_FOO *|
+ *     #define XF86XK_Foo<spaces…>_EVDEVK(0xABC)<spaces…> |* kver KEY_FOO *|
  *
  * Where
- * - alignment by tabs
+ * - alignment by spaces
  * - the _EVDEVK macro must be used
  * - the hex code must be in uppercase hex
  * - the kernel version (kver) is in the form v5.10

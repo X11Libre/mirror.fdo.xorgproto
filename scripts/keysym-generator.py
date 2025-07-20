@@ -191,11 +191,14 @@ def verify(ns):
 
     # This is the full pattern we expect.
     expected_pattern = re.compile(
-        r"#define XF86XK_\w+ +_EVDEVK\(0x([0-9A-Fa-f]{3})\) +/\* (v[2-6]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+ \*/"
+        r"#define XF86XK_\w+ +_EVDEVK\(0x([0-9A-Fa-f]{3})\) +"
+        r"/\* (?:(?P<kernel_version>v[2-6]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+|"
+        r"(?P<alias>Alias for XF86XK_\w+)) \*/"
     )
     # This is the comment pattern we expect
     expected_comment_pattern = re.compile(
-        r"/\* Use: (?P<name>\w+) +_EVDEVK\(0x(?P<value>[0-9A-Fa-f]{3})\) +   (v[2-6]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+ \*/"
+        r"/\* Use: (?P<name>\w+) +_EVDEVK\(0x(?P<value>[0-9A-Fa-f]{3})\) +   "
+        r"(v[2-6]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+ \*/"
     )
 
     # Some patterns to spot specific errors, just so we can print useful errors
@@ -204,8 +207,11 @@ def verify(ns):
     space_check = re.compile(r"#define \w+(\s+)[^\s]+(\s+)")
     hex_pattern = re.compile(r".*0x([a-f0-9]+).*", re.I)
     todo_pattern = re.compile(r"^/\* TODO.*\*/$")
-    comment_format = re.compile(r".*/\* ([^\s]+)?\s+(\w+)")
+    comment_format = re.compile(
+        r".*/\* (?:(?:Deprecated a|A)lias for (\w+)|([^\s]+)?\s+(\w+))"
+    )
     kver_format = re.compile(r"v[2-6]\.[0-9]+(\.[0-9]+)?")
+    alias_format = re.compile(r"(?:Deprecated a|A)lias for XF86XK_\w+")
 
     in_evdev_codes_section = False
     had_evdev_codes_section = False
@@ -292,17 +298,20 @@ def verify(ns):
                 comment = re.match(comment_format, line)
                 if not comment:
                     error("Invalid comment format", line)
-                kver = comment.group(1)
-                if kver and not re.match(kver_format, kver):
-                    error("Invalid kernel version format", line)
+                if alias_target := comment.group(1):
+                    alias = True
+                else:
+                    alias = False
+                    if (kver := comment.group(2)) and not re.match(kver_format, kver):
+                        error("Invalid kernel version format", line)
 
-                keyname = comment.group(2)
-                if not keyname.startswith("KEY_") or keyname.upper() != keyname:
-                    error("Kernel keycode name invalid", line)
+                    keyname = comment.group(3)
+                    if not keyname.startswith("KEY_") or keyname.upper() != keyname:
+                        error("Kernel keycode name invalid", line)
 
-                # This could be an old libevdev
-                if keyname not in [c.name for c in libevdev.EV_KEY.codes]:
-                    logger.warning(f"Unknown kernel keycode name {keyname}")
+                    # This could be an old libevdev
+                    if keyname not in [c.name for c in libevdev.EV_KEY.codes]:
+                        logger.warning(f"Unknown kernel keycode name {keyname}")
 
                 # Check the full expected format, no better error messages
                 # available if this fails
@@ -313,7 +322,7 @@ def verify(ns):
                 keycode = int(match.group(1), 16)
                 if keycode < last_keycode:
                     error("Keycode must be ascending", line)
-                if keycode == last_keycode:
+                if keycode == last_keycode and not alias:
                     error("Duplicate keycode", line)
 
                 # May cause a false positive for old libevdev if KEY_MAX is bumped

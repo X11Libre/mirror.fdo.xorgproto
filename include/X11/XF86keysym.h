@@ -108,6 +108,7 @@
 #define XF86XK_ApplicationRight      0x1008ff51  /* switch to application, right*/
 #define XF86XK_Book                  0x1008ff52  /* Launch bookreader           */
 #define XF86XK_CD                    0x1008ff53  /* Launch CD/DVD player        */
+#define XF86XK_MediaSelectCD         0x1008ff53  /* Alias for XF86XK_CD         */
 #define XF86XK_Calculater            0x1008ff54  /* Launch Calculater           */
 #define XF86XK_Clear                 0x1008ff55  /* Clear window, screen        */
 #define XF86XK_Close                 0x1008ff56  /* Close window                */
@@ -275,6 +276,8 @@
  * The format for #defines is strict:
  *
  *     #define XF86XK_Foo<spaces…>_EVDEVK(0xABC)<spaces…> |* kver KEY_FOO *|
+ *     #define XF86XK_Foo<spaces…>_EVDEVK(0xABC)<spaces…> |* Alias for XF86XK_Bar *|
+ *     #define XF86XK_Foo<spaces…>_EVDEVK(0xABC)<spaces…> |* Deprecated alias for XF86XK_Bar *|
  *
  * Where
  * - alignment by spaces
@@ -348,13 +351,14 @@
 #define XF86XK_MediaSelectVCRPlus       _EVDEVK(0x17c)  /* v2.5.26 KEY_VCR2 */
 #define XF86XK_MediaSelectSatellite     _EVDEVK(0x17d)  /* v2.5.26 KEY_SAT */
 /* TODO: unclear media selector         _EVDEVK(0x17e)     v2.5.26 KEY_SAT2 */
-/* Use: XF86XK_CD                       _EVDEVK(0x17f)     v2.5.26 KEY_CD */
+/* Use: XF86XK_MediaSelectCD            _EVDEVK(0x17f)     v2.5.26 KEY_CD */
 #define XF86XK_MediaSelectTape          _EVDEVK(0x180)  /* v2.5.26 KEY_TAPE */
 #define XF86XK_MediaSelectRadio         _EVDEVK(0x181)  /* v2.5.26 KEY_RADIO */
 #define XF86XK_MediaSelectTuner         _EVDEVK(0x182)  /* v2.5.26 KEY_TUNER */
 #define XF86XK_MediaPlayer              _EVDEVK(0x183)  /* v2.5.26 KEY_PLAYER */
 #define XF86XK_MediaSelectTeletext      _EVDEVK(0x184)  /* v2.5.26 KEY_TEXT */
 #define XF86XK_DVD                      _EVDEVK(0x185)  /* v2.5.26 KEY_DVD */
+#define XF86XK_MediaSelectDVD           _EVDEVK(0x185)  /* Alias for XF86XK_DVD */
 #define XF86XK_MediaSelectAuxilliary    _EVDEVK(0x186)  /* v2.5.26 KEY_AUX */
 /* TODO: unclear media selector         _EVDEVK(0x187)     v2.5.26 KEY_MP3 */
 #define XF86XK_Audio                    _EVDEVK(0x188)  /* v2.5.26 KEY_AUDIO */

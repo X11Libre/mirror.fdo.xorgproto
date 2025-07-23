@@ -359,7 +359,7 @@
 #define XF86XK_MediaSelectTeletext      _EVDEVK(0x184)  /* v2.5.26 KEY_TEXT */
 #define XF86XK_DVD                      _EVDEVK(0x185)  /* v2.5.26 KEY_DVD */
 #define XF86XK_MediaSelectDVD           _EVDEVK(0x185)  /* Alias for XF86XK_DVD */
-#define XF86XK_MediaSelectAuxilliary    _EVDEVK(0x186)  /* v2.5.26 KEY_AUX */
+#define XF86XK_MediaSelectAuxiliary     _EVDEVK(0x186)  /* v2.5.26 KEY_AUX */
 /* TODO: unclear media selector         _EVDEVK(0x187)     v2.5.26 KEY_MP3 */
 #define XF86XK_Audio                    _EVDEVK(0x188)  /* v2.5.26 KEY_AUDIO */
 /* Use: XF86XK_Video                    _EVDEVK(0x189)     v2.5.26 KEY_VIDEO */

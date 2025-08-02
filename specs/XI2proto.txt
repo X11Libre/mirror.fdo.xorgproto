@@ -12,7 +12,7 @@ Authors:
 - Povilas Kanapickas <povilas@radix.lt>
 
 [[history]]
-History 
+History
 -------
 
 - v2.4, September 2021: Touchpad gesture support added
@@ -414,7 +414,7 @@ before the current owner has accepted or rejected the sequence, the client
 receives a TouchUpdate event with the TouchPendingEnd flag set. No further
 TouchUpdate events will be sent for this sequence. If the current owner
 accepts the sequence, the client receives a TouchEnd event. Otherwise, if
-the current owner rejects the sequence, the client may become 
+the current owner rejects the sequence, the client may become
 the owner of the touch sequence and receive a TouchOwnership event and a
 TouchEnd event.
 
@@ -2183,7 +2183,7 @@ offset is given such that L is negative. The value of bytes_after is A,
 giving the number of trailing unread bytes in the stored property. If
 delete is True and the bytes_after is zero, the property is also
 deleted from the device, and a XIPropertyNotify event is generated on
-the device.  
+the device.
 
 [[requests-xi23]]
 Requests introduced in version 2.3
@@ -2226,7 +2226,7 @@ assigned and the client must re-issue the XIBarrierReleasePointer request.
 If the device is not a master pointer device, a BadDevice error results.
 If the barrier does not name a valid barrier, a BadValue error results.
 
-     
+
 [[events]]
 Events
 ------
@@ -2707,7 +2707,7 @@ modified by a client.
         The property that has been created, deleted, or modified
     what
         Specifies what has been changed.
-     
+
 [[events-xi22]]
 Events introduced in version 2.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

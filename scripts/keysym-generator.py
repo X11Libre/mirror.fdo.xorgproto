@@ -42,12 +42,12 @@ def die(msg):
     sys.exit(1)
 
 
-def all_keysyms(directory):
+def all_keysyms(directory) -> set[str]:
     """
     Extract the key names for all keysyms we have in our repo and return
     them as list.
     """
-    keysym_names = []
+    keysym_names: set[str] = set()
     pattern = re.compile(
         r"^#define\s+(?P<name>\w+)\s+(0x[0-9A-Fa-f]+|_EVDEVK\(0x([0-9A-Fa-f]{3}))"
     )
@@ -56,7 +56,7 @@ def all_keysyms(directory):
             for line in fd:
                 match = re.match(pattern, line)
                 if match:
-                    keysym_names.append(match.group("name"))
+                    keysym_names.add(match.group("name"))
     return keysym_names
 
 
@@ -193,11 +193,12 @@ def verify(ns):
     expected_pattern = re.compile(
         r"#define XF86XK_\w+ +_EVDEVK\(0x([0-9A-Fa-f]{3})\) +"
         r"/\* (?:(?P<kernel_version>v[2-6]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+|"
-        r"(?P<alias>Alias for XF86XK_\w+)) \*/"
+        r"(?P<alias>(?:Deprecated a|A)lias for XF86XK_\w+)) \*/"
     )
     # This is the comment pattern we expect
     expected_comment_pattern = re.compile(
-        r"/\* Use: (?P<name>\w+) +_EVDEVK\(0x(?P<value>[0-9A-Fa-f]{3})\) +   "
+        r"/\* (?:Use: (?P<name>\w+)|NOTE.+|TODO.*) +"
+        r"_EVDEVK\(0x(?P<value>[0-9A-Fa-f]{3})\) +   "
         r"(v[2-6]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+ \*/"
     )
 
@@ -206,9 +207,10 @@ def verify(ns):
     name_pattern = re.compile(r"#define (XF86XK_[^\s]*)")
     space_check = re.compile(r"#define \w+(\s+)[^\s]+(\s+)")
     hex_pattern = re.compile(r".*0x([a-f0-9]+).*", re.I)
-    todo_pattern = re.compile(r"^/\* TODO.*\*/$")
+    todo_pattern = re.compile(r"^/\* (TODO|NOTE).*\*/$")
     comment_format = re.compile(
-        r".*/\* (?:(?:Deprecated a|A)lias for (\w+)|([^\s]+)?\s+(\w+))"
+        r".*/\* (?:(?:Deprecated a|A)lias for (?P<alias>\w+)|"
+        r"(?P<version>[^\s]+)?\s+(?P<key>\w+))"
     )
     kver_format = re.compile(r"v[2-6]\.[0-9]+(\.[0-9]+)?")
     alias_format = re.compile(r"(?:Deprecated a|A)lias for XF86XK_\w+")
@@ -220,6 +222,8 @@ def verify(ns):
     all_defines = []
 
     all_keysym_names = all_keysyms(ns.header.parent)
+    # NoSymbol is define in another header
+    all_keysym_names.add("NoSymbol")
 
     class ParserError(Exception):
         pass
@@ -228,6 +232,7 @@ def verify(ns):
         raise ParserError(f"{msg} in '{line.strip()}'")
 
     last_keycode = 0
+    last_alias = False
     for line in open(ns.header):
         try:
             if not in_evdev_codes_section:
@@ -263,9 +268,9 @@ def verify(ns):
                                 error("Duplicate keycode", line)
                             last_keycode = keycode
 
-                        name = match.group("name")
-                        if name not in all_keysym_names:
-                            error(f"Unknown keysym {name}", line)
+                        if name := match.group("name"):
+                            if name not in all_keysym_names:
+                                error(f"Unknown keysym {name}", line)
                     elif re.match(hex_pattern, line) and not todo_pattern.match(line):
                         logger.warning(f"Unexpected hex code in {line}")
                     continue
@@ -298,7 +303,7 @@ def verify(ns):
                 comment = re.match(comment_format, line)
                 if not comment:
                     error("Invalid comment format", line)
-                if alias_target := comment.group(1):
+                if alias_target := comment.group("alias"):
                     alias = True
                 else:
                     alias = False
@@ -322,7 +327,7 @@ def verify(ns):
                 keycode = int(match.group(1), 16)
                 if keycode < last_keycode:
                     error("Keycode must be ascending", line)
-                if keycode == last_keycode and not alias:
+                if keycode == last_keycode and not (alias or last_keycode):
                     error("Duplicate keycode", line)
 
                 # May cause a false positive for old libevdev if KEY_MAX is bumped
@@ -330,6 +335,7 @@ def verify(ns):
                     error("Keycode outside range", line)
 
                 last_keycode = keycode
+                last_alias = alias
         except ParserError as e:
             logger.error(e)
             success = False
@@ -359,13 +365,13 @@ def add_keysyms(ns):
     # 3-digit hexcode in brackets and use that as keycode.
     pattern = re.compile(r".*_EVDEVK\((0x[0-9A-Fa-f]{3})\).*")
     max_code = max(
-        [
+        (
             c.value
             for c in libevdev.EV_KEY.codes
             if c.is_defined
             and c != libevdev.EV_KEY.KEY_MAX
             and not c.name.startswith("BTN")
-        ]
+        )
     )
 
     def defined_keycodes(path):
@@ -386,7 +392,7 @@ def add_keysyms(ns):
                 else:
                     if re.match(r"#undef _EVDEVK\n", line):
                         in_evdev_codes_section = False
-                        yield max_code
+                        yield max_code + 1  # Upper bound of range()
                     else:
                         match = re.match(pattern, line)
                         if match:

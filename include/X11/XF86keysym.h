@@ -295,18 +295,19 @@
  */
 #define _EVDEVK(_v) (0x10081000 + _v)
 /* Use: XF86XK_Eject                    _EVDEVK(0x0a2)             KEY_EJECTCLOSECD */
-/* TODO: Use XF86XK_AudioNext?          _EVDEVK(0x0a3)             KEY_NEXTSONG */
-/* TODO: XF86XK_MediaPlayPause?         _EVDEVK(0x0a4)             KEY_PLAYPAUSE */
-/* TODO: Use XF86XK_AudioPrev?          _EVDEVK(0x0a5)             KEY_PREVIOUSSONG */
-/* TODO: Use XF86XK_AudioStop?          _EVDEVK(0x0a6)             KEY_STOPCD */
-/* TODO: Use XF86XK_AudioRecord?        _EVDEVK(0x0a7)             KEY_RECORD */
-/* TODO: Use XF86XK_AudioRewind?        _EVDEVK(0x0a8)             KEY_REWIND */
+/* Use: XF86XK_AudioNext                _EVDEVK(0x0a3)             KEY_NEXTSONG */
+#define XF86XK_MediaPlayPause           _EVDEVK(0x0a4)  /*         KEY_PLAYPAUSE */
+/* Use: XF86XK_AudioPrev                _EVDEVK(0x0a5)             KEY_PREVIOUSSONG */
+/* NOTE: Currently no use case for CD-specific keysyms */
+/* Use: XF86XK_AudioStop                _EVDEVK(0x0a6)             KEY_STOPCD */
+/* Use: XF86XK_AudioRecord              _EVDEVK(0x0a7)             KEY_RECORD */
+/* Use: XF86XK_AudioRewind              _EVDEVK(0x0a8)             KEY_REWIND */
 /* Use: XF86XK_Phone                    _EVDEVK(0x0a9)             KEY_PHONE */
 /* TODO: unclear function               _EVDEVK(0x0aa)             KEY_ISO */
 /* TODO: unclear function               _EVDEVK(0x0ab)             KEY_CONFIG */
 /* Use: XF86XK_HomePage                 _EVDEVK(0x0ac)             KEY_HOMEPAGE */
 /* Use: XF86XK_Refresh                  _EVDEVK(0x0ad)             KEY_REFRESH */
-/* TODO: unclear function               _EVDEVK(0x0ae)             KEY_EXIT */
+#define XF86XK_Exit                     _EVDEVK(0x0ae)  /*         KEY_EXIT */
 /* TODO: unclear function               _EVDEVK(0x0af)             KEY_MOVE */
 /* TODO: unclear function               _EVDEVK(0x0b0)             KEY_EDIT */
 /* Use: XF86XK_ScrollUp                 _EVDEVK(0x0b1)             KEY_SCROLLUP */
@@ -329,26 +330,28 @@
 /* Use: XK_F22                          _EVDEVK(0x0c0)             KEY_F22 */
 /* Use: XK_F23                          _EVDEVK(0x0c1)             KEY_F23 */
 /* Use: XK_F24                          _EVDEVK(0x0c2)             KEY_F24 */
-/* TODO: Use XF86XK_AudioPlay?          _EVDEVK(0x0c8)             KEY_PLAYCD */
-/* TODO: Use XF86XK_AudioPause?         _EVDEVK(0x0c9)             KEY_PAUSECD */
+/* NOTE: Currently no use case for CD-specific keysyms */
+/* Use: XF86XK_AudioPlay                _EVDEVK(0x0c8)             KEY_PLAYCD */
+/* Use: XF86XK_AudioPause               _EVDEVK(0x0c9)             KEY_PAUSECD */
 /* Use: XF86XK_Launch3                  _EVDEVK(0x0ca)             KEY_PROG3 */
 /* Use: XF86XK_Launch4                  _EVDEVK(0x0cb)             KEY_PROG4 */
 /* NOTE: KEY_DASHBOARD has been mapped to LaunchB in xkeyboard-config since 2011 */
 /* Use: XF86XK_LaunchB                  _EVDEVK(0x0cc)     v2.6.28 KEY_DASHBOARD */
 /* Use: XF86XK_Suspend                  _EVDEVK(0x0cd)             KEY_SUSPEND */
 /* Use: XF86XK_Close                    _EVDEVK(0x0ce)             KEY_CLOSE */
-/* TODO: Use XF86XK_AudioPlay?          _EVDEVK(0x0cf)             KEY_PLAY */
-/* TODO: Use XF86XK_AudioForward?       _EVDEVK(0x0d0)             KEY_FASTFORWARD */
-/* TODO: XF86XK_AudioBassBoost?         _EVDEVK(0x0d1)             KEY_BASSBOOST */
+/* Use: XF86XK_AudioPlay                _EVDEVK(0x0cf)             KEY_PLAY */
+/* Use: XF86XK_AudioForward             _EVDEVK(0x0d0)             KEY_FASTFORWARD */
+#define XF86XK_AudioBassBoost           _EVDEVK(0x0d1)  /*         KEY_BASSBOOST */
 /* Use: XK_Print                        _EVDEVK(0x0d2)             KEY_PRINT */
-/* TODO: headphone or vendor key?       _EVDEVK(0x0d3)             KEY_HP */
+/* NOTE: The following keys seem specific to some HP keyboards such as SK-2565 USB */
+/* TODO: unclear HP-specific function?  _EVDEVK(0x0d3)             KEY_HP */
 /* Use: XF86XK_WebCam                   _EVDEVK(0x0d4)             KEY_CAMERA */
-/* TODO: unclear function               _EVDEVK(0x0d5)             KEY_SOUND */
-/* TODO: unclear function               _EVDEVK(0x0d6)             KEY_QUESTION */
+/* TODO: unclear HP-specific function?  _EVDEVK(0x0d5)             KEY_SOUND */
+/* TODO: unclear HP-specific function?  _EVDEVK(0x0d6)             KEY_QUESTION */
 /* Use: XF86XK_Mail                     _EVDEVK(0x0d7)             KEY_EMAIL */
 /* Use: XF86XK_Messenger                _EVDEVK(0x0d8)             KEY_CHAT */
 /* Use: XF86XK_Search                   _EVDEVK(0x0d9)             KEY_SEARCH */
-/* TODO: unclear function               _EVDEVK(0x0da)             KEY_CONNECT */
+/* TODO: unclear HP-specific function?  _EVDEVK(0x0da)             KEY_CONNECT */
 /* Use: XF86XK_Finance                  _EVDEVK(0x0db)             KEY_FINANCE */
 #define XF86XK_Sport                    _EVDEVK(0x0dc)  /*         KEY_SPORT */
 /* Use: XF86XK_Shop                     _EVDEVK(0x0dd)             KEY_SHOP */
@@ -476,6 +479,7 @@
 #define XF86XK_PickupPhone              _EVDEVK(0x1bd)  /* v5.10   KEY_PICKUP_PHONE */
 #define XF86XK_HangupPhone              _EVDEVK(0x1be)  /* v5.10   KEY_HANGUP_PHONE */
 #define XF86XK_LinkPhone                _EVDEVK(0x1bf)  /* v6.14   KEY_LINK_PHONE */
+/* NOTE: The following seem to be legacy terminal keys. Ignored due to lack of use cases */
 /* TODO: XF86XK_DeleteToEndOfLine?      _EVDEVK(0x1c0)             KEY_DEL_EOL */
 /* TODO: XF86XK_DeleteToEndOfScreen?    _EVDEVK(0x1c1)             KEY_DEL_EOS */
 /* TODO: XF86XK_InsertLine?             _EVDEVK(0x1c2)             KEY_INS_LINE */

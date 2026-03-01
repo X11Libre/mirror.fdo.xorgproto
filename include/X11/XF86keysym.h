@@ -568,6 +568,8 @@
 #define XF86XK_DoNotDisturb             _EVDEVK(0x24f)  /* v6.10   KEY_DO_NOT_DISTURB */
 #define XF86XK_BrightnessMin            _EVDEVK(0x250)  /* v3.16   KEY_BRIGHTNESS_MIN */
 #define XF86XK_BrightnessMax            _EVDEVK(0x251)  /* v3.16   KEY_BRIGHTNESS_MAX */
+#define XF86XK_ElectronicPrivacyScreenOn  _EVDEVK(0x252)  /* v6.18   KEY_EPRIVACY_SCREEN_ON */
+#define XF86XK_ElectronicPrivacyScreenOff _EVDEVK(0x253)  /* v6.18   KEY_EPRIVACY_SCREEN_OFF */
 #define XF86XK_KbdInputAssistPrev       _EVDEVK(0x260)  /* v3.18   KEY_KBDINPUTASSIST_PREV */
 #define XF86XK_KbdInputAssistNext       _EVDEVK(0x261)  /* v3.18   KEY_KBDINPUTASSIST_NEXT */
 #define XF86XK_KbdInputAssistPrevgroup  _EVDEVK(0x262)  /* v3.18   KEY_KBDINPUTASSIST_PREVGROUP */

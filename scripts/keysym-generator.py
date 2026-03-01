@@ -192,7 +192,8 @@ def verify(ns):
     # This is the full pattern we expect.
     expected_pattern = re.compile(
         r"#define XF86XK_\w+ +_EVDEVK\(0x([0-9A-Fa-f]{3})\) +"
-        r"/\* (?:(?P<kernel_version>v[2-6]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+|"
+        r"/\* (?:(?P<kernel_version>v[2-6]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+"
+        r"(?:\s+(?P<lt><)?(?P<unicode>U\+[0-9A-F]{4,6})(?: \w+)+(?(lt)>))?|"
         r"(?P<alias>(?:Deprecated a|A)lias for XF86XK_\w+)) \*/"
     )
     # This is the comment pattern we expect
@@ -210,7 +211,8 @@ def verify(ns):
     todo_pattern = re.compile(r"^/\* (TODO|NOTE).*\*/$")
     comment_format = re.compile(
         r".*/\* (?:(?:Deprecated a|A)lias for (?P<alias>\w+)|"
-        r"(?P<version>[^\s]+)?\s+(?P<key>\w+))"
+        r"(?P<version>[^\s]+)?\s+(?P<key>\w+)"
+        r"(?:\s+(?P<lt><)?(?P<unicode>U\+[0-9A-F]{4,6})(?: \w+)+(?(lt)>))?)"
     )
     kver_format = re.compile(r"v[2-6]\.[0-9]+(\.[0-9]+)?")
     alias_format = re.compile(r"(?:Deprecated a|A)lias for XF86XK_\w+")

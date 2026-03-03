@@ -2585,3 +2585,11 @@ SOFTWARE.
 #define XK_Sinh_luu2                  0x1000df3  /* U+0DF3 SINHALA VOWEL SIGN DIGA GAYANUKITTA */
 #define XK_Sinh_kunddaliya            0x1000df4  /* U+0DF4 SINHALA PUNCTUATION KUNDDALIYA */
 #endif /* XK_SINHALA */
+
+/*
+ * German
+ */
+
+#ifdef XK_GERMAN
+#define XK_SSHARP                     0x1001e9e  /* U+1E9E LATIN CAPITAL LETTER SHARP S */
+#endif /* XK_GERMAN */

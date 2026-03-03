@@ -2594,3 +2594,12 @@ SOFTWARE.
 #ifdef XK_GERMAN
 #define XK_SSHARP                     0x1001e9e  /* U+1E9E LATIN CAPITAL LETTER SHARP S */
 #endif /* XK_GERMAN */
+
+/*
+ * General punctuation
+ */
+
+#ifdef XK_GENERAL_PUNCTUATION
+#define XK_leftsingleanglequotemark   0x1002039  /* U+2039 SINGLE LEFT-POINTING ANGLE QUOTATION MARK */
+#define XK_rightsingleanglequotemark  0x100203a  /* U+203A SINGLE RIGHT-POINTING ANGLE QUOTATION MARK */
+#endif /* XK_GENERAL_PUNCTUATION */

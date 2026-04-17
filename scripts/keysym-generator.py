@@ -78,7 +78,7 @@ class Kernel(object):
         exitcode, stdout, stderr = self.git_command("git tag --sort=version:refname")
         tags = stdout.split("\n")
         self.versions = list(
-            filter(lambda v: re.match(r"^v[2-6]\.[0-9]+(\.[0-9]+)?$", v), tags)
+            filter(lambda v: re.match(r"^v[2-7]\.[0-9]+(\.[0-9]+)?$", v), tags)
         )
         logger.debug(f"Kernel versions: {', '.join(self.versions)}")
 
@@ -192,7 +192,7 @@ def verify(ns):
     # This is the full pattern we expect.
     expected_pattern = re.compile(
         r"#define XF86XK_\w+ +_EVDEVK\(0x([0-9A-Fa-f]{3})\) +"
-        r"/\* (?:(?P<kernel_version>v[2-6]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+"
+        r"/\* (?:(?P<kernel_version>v[2-7]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+"
         r"(?:\s+(?P<lt><)?(?P<unicode>U\+[0-9A-F]{4,6})(?: \w+)+(?(lt)>))?|"
         r"(?P<alias>(?:Deprecated a|A)lias for XF86XK_\w+)) \*/"
     )
@@ -200,7 +200,7 @@ def verify(ns):
     expected_comment_pattern = re.compile(
         r"/\* (?:Use: (?P<name>\w+)|NOTE.+|TODO.*) +"
         r"_EVDEVK\(0x(?P<value>[0-9A-Fa-f]{3})\) +   "
-        r"(v[2-6]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+ \*/"
+        r"(v[2-7]\.[0-9]+(\.[0-9]+)?)? +KEY_\w+ \*/"
     )
 
     # Some patterns to spot specific errors, just so we can print useful errors
@@ -214,7 +214,7 @@ def verify(ns):
         r"(?P<version>[^\s]+)?\s+(?P<key>\w+)"
         r"(?:\s+(?P<lt><)?(?P<unicode>U\+[0-9A-F]{4,6})(?: \w+)+(?(lt)>))?)"
     )
-    kver_format = re.compile(r"v[2-6]\.[0-9]+(\.[0-9]+)?")
+    kver_format = re.compile(r"v[2-7]\.[0-9]+(\.[0-9]+)?")
     alias_format = re.compile(r"(?:Deprecated a|A)lias for XF86XK_\w+")
 
     in_evdev_codes_section = False

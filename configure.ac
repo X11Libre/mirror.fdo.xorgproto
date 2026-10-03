@@ -23,8 +23,8 @@ dnl Process this file with autoconf to create configure.
 
 AC_PREREQ([2.60])
 # keep version in sync with meson.build
-AC_INIT([xorgproto], [2025.1],
-        [https://gitlab.freedesktop.org/xorg/proto/xorgproto/issues])
+AC_INIT([xorgproto], [2026.1],
+        [https://gitlab.freedesktop.org/xorg/proto/xorgproto/-/issues])
 AM_INIT_AUTOMAKE([foreign dist-xz])
 
 # Require xorg-macros: XORG_DEFAULT_OPTIONS
